@@ -57,7 +57,7 @@
   </mat-card>
 </div>
 
-<div *ngIf="formCompleted">
+<div *ngIf="formCompleted && access_Token == ''">
   <mat-card>
     <mat-card-header
       ><mat-card-title>Spotify Login</mat-card-title>
