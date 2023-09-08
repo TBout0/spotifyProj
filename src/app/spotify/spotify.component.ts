@@ -114,6 +114,7 @@ export class SpotifyComponent {
       let code = params.get('code');
       if (code) {
         this.auth_Code = code;
+        this.formCompleted = true;
       }
       let error = params.get('error');
       if (error) {
