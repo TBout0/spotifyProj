@@ -1,0 +1,114 @@
+<div *ngIf="!formCompleted">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Create Spotify App</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        To Start geting your own data you need to create a spotify app within
+        Spotify
+      </p>
+      <p>
+        To create this app you can follow these
+        <a
+          href="https://developer.spotify.com/documentation/web-api/tutorials/getting-started#create-an-app"
+          class="blue"
+          target="_blank"
+          >Instuctions</a
+        >.
+      </p>
+      <p>
+        Start by going to
+        <a
+          href="https://developer.spotify.com/dashboard"
+          class="blue"
+          target="_blank"
+          >Dashboard</a
+        >
+        and create an App.
+      </p>
+      <ul>
+        <li>App Name: My App</li>
+        <li>App Description: This is my first Spotify app</li>
+        <li>
+          Redirect URI: You won't need this parameter in this example, so let's
+          use http://localhost:3000.
+        </li>
+      </ul>
+      <div class="form">
+        <h3>Please Enter the Information from the App you just Created</h3>
+        <mat-form-field>
+          <mat-label>Client Id</mat-label>
+          <input type="text" matInput [(ngModel)]="clientId" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Client Secret</mat-label>
+          <input type="text" matInput [(ngModel)]="clientId" />
+        </mat-form-field>
+        <div class="buttons">
+          <button mat-raised-button (click)="saveClient()">Save</button>
+          <button mat-raised-button (click)="deleteClient()">Cancel</button>
+          <button mat-raised-button (click)="formCompleted = true">
+            Continue
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div *ngIf="formCompleted">
+  <mat-card>
+    <mat-card-header
+      ><mat-card-title>Spotify Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        In order to allow this app to access your spotify data you will need to
+        authorize this app to use your account.
+      </p>
+    </mat-card-content>
+    <mat-card-footer
+      ><button mat-raised-button value="redirect" (click)="redirect()">
+        Authorize App
+      </button></mat-card-footer
+    >
+  </mat-card>
+</div>
+<div *ngIf="access_Token != ''">
+  <mat-card>
+    <mat-card-content class="data">
+      <mat-form-field>
+        <mat-label>Range of Data</mat-label>
+        <mat-select [(ngModel)]="term">
+          <mat-option value="long">Long Term (+1 Years)</mat-option>
+          <mat-option value="medium">Medium Term (6 Months)</mat-option>
+          <mat-option value="short">Short Term (4 Weeks)</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-card-footer>
+        <button (click)="getData()" mat-raised-button>Get Data</button>
+      </mat-card-footer>
+      <mat-tab-group *ngIf="artists[0] != undefined">
+        <mat-tab label="Artist's" class="artist">
+          <div *ngFor="let artist of artists" class="row">
+            <div class="item1">
+              <img class="photo" src="{{ artist.images[0].url }}" />
+            </div>
+            <div class="item2">
+              <a href="{{ artist.external_urls.spotify }}" target="_blank">{{
+                artist.name
+              }}</a>
+            </div>
+            <div class="item3">
+              <span>Popularity: {{ artist.popularity }}</span>
+            </div>
+          </div>
+          <br />
+        </mat-tab>
+
+        <mat-tab label="Track's"></mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>
