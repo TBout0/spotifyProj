@@ -30,10 +30,7 @@
       <ul>
         <li>App Name: My App</li>
         <li>App Description: This is my first Spotify app</li>
-        <li>
-          Redirect URI: You won't need this parameter in this example, so let's
-          use http://localhost:3000.
-        </li>
+        <li>Redirect URI: http://localhost:4200/spotify.</li>
       </ul>
       <div class="form">
         <h3>Please Enter the Information from the App you just Created</h3>
@@ -107,7 +104,21 @@
           <br />
         </mat-tab>
 
-        <mat-tab label="Track's"></mat-tab>
+        <mat-tab label="Track's">
+          <div *ngFor="let track of tracks" class="row">
+            <div class="item1">
+              <img class="photo" src="{{ track.album.images[0].url }}" />
+            </div>
+            <div class="item2">
+              <a href="{{ track.external_urls.spotify }}" target="_blank"
+                >{{ track.name }} - {{ track.artists[0].name }}</a
+              >
+            </div>
+            <div class="item3">
+              <span>Popularity: {{ track.popularity }}</span>
+            </div>
+          </div>
+        </mat-tab>
       </mat-tab-group>
     </mat-card-content>
   </mat-card>
